@@ -2,11 +2,14 @@ html,
 body {
   margin: 0;
   padding: 0;
+  background-image: url("background3.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 main {
   display: block;
-  background-color: black;
+  background-color: rgba(0,0,0,0.4);
 }
 
 button {
@@ -14,8 +17,9 @@ button {
   font-size: 18px;
   background-color: #3498db;
   color: #fff;
-  border: none;
+  border: solid;
   cursor: pointer;
+  border-radius: 1em;
 }
 
 button:hover {

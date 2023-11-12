@@ -6,7 +6,12 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    background-image: url("background2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color:white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    
 }
 
 .menu {
@@ -23,9 +28,10 @@ button {
     font-size: 18px;
     background-color: #3498db;
     color: #fff;
-    border: none;
+    border: solid;
     cursor: pointer;
-}
+    border-radius: 1em;
+  }
 
 button:hover {
     background-color: #2980b9;
@@ -33,4 +39,5 @@ button:hover {
 
 main {
     padding: 2em;
+    background-color: rgba(0,0,0,0.4);
 }

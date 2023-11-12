@@ -6,7 +6,9 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
   .menu {
@@ -16,6 +18,10 @@ body {
   h1 {
     font-size: 36px;
     margin-bottom: 20px;
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);;
+    -webkit-text-stroke: 0.04em #3498db;
   }
 
   button {
@@ -23,8 +29,9 @@ body {
     font-size: 18px;
     background-color: #3498db;
     color: #fff;
-    border: none;
+    border: solid;
     cursor: pointer;
+    border-radius: 1em;
   }
 
   button:hover {

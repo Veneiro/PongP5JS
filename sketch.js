@@ -117,6 +117,10 @@ function draw() {
 function reiniciarJuego() {
   if (health - 1 <= 0) {
     death.play();
+    window.location.href = "./gameover.html";
+
+    // Codigo para pruebas del game over
+    /** 
     // Reiniciar la posición de la pelota
     Matter.Body.setPosition(pelota.body, { x: width / 2, y: height / 4 });
 
@@ -141,6 +145,7 @@ function reiniciarJuego() {
     Matter.Body.setPosition(rightWall, { x: width, y: height / 2 - 10 });
     offrateizq = 0;
     offrateder = 360;
+    */
   } else {
     // Reiniciar la posición de la pelota
     Matter.Body.setPosition(pelota.body, { x: width / 2, y: height / 4 });
