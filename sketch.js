@@ -308,7 +308,7 @@ class Pelota {
 
     if ((score + 1) % 5 == 0 && score != 0) {
       speedUp.play();
-    } else if (score % 5 != 0) {
+    } else if ((score + 1) % 5 != 0) {
       rebote.play();
     }
 
