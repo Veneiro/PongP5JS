@@ -37,13 +37,18 @@ if (musicState === "playing") {
   pauseMusic();
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   if(musicState === "playing"){
-    playMusic();
     mute.innerHTML = playingText;
   } else {
     mute.innerHTML = muteText;
   }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  if(musicState === "playing"){
+    playMusic();
+  } 
 });
 
 function music(){
