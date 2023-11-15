@@ -1,36 +1,79 @@
+// Engine de Físicas
 let engine;
+
+// Mundo
 let world;
+
+// Pala Jugador
 let pala;
-let pelota;
-let ground; // Pared inferior
-let leftWall; // Pared izquierda
-let rightWall; // Pared derecha
+
+// Pelota
+let pelota; 
+
+// Pared inferior
+let ground; 
+
+// Pared izquierda
+let leftWall; 
+
+// Pared derecha
+let rightWall; 
+
+// Puntuación
 let score = 0;
+
+// Magnitud de la fuerza de rebote de la pala
 let forceMagnitude = 0.02;
+
+// Velocidad de todos los sonidos del juego
 let reboteRate = 1.0;
 let speedUpRate = 1.0;
+let musicaRate = 1.0;
+
+// Aleatoriedad de los rebotes (en grados)
 let offrateizq = 0;
 let offrateder = 360;
+
+// Vida del jugador
 let health = 3;
+
+//
 let size = 500;
+
+
 let izVel = -1;
 let derVel = 1;
+
+// Variable para comprobar si se puede aumentar más el espacio de juego
 let moreResizable = true;
+
+// Variable para comprobar si se ha de pasar a la música de nivel 2
+let level2Music = false;
 
 function setup() {
   createCanvas(size, 500);
 
+  // Cargar todos los sonidos
   rebote = loadSound("./rebote.wav");
   speedUp = loadSound("./SpeedUp.wav");
   death = loadSound("./death.wav");
+  musica = loadSound("./musica.wav");
+  musica2 = loadSound("./musica2.wav");
+  musica3 = loadSound("./musica3.wav");
 
   // Establecer el volumen
   rebote.setVolume(0.4);
   speedUp.setVolume(0.4);
   death.setVolume(0.4);
+  musica.setVolume(0.1);
+  musica2.setVolume(0.1);
+  musica3.setVolume(0.1);
 
   // Crear un motor y un mundo para la física con Matter.js
-  engine = Matter.Engine.create();
+  engine = Matter.Engine.create({
+    constraintIterations: 2,
+    positionIterations: 6, 
+  });
   world = engine.world;
 
   // Crear la pala y la pelota
@@ -160,6 +203,8 @@ function reiniciarJuego() {
     pala.x = width / 2;
     pala.y = height - 20;
     health--;
+
+    death.play();
   }
 }
 
@@ -306,6 +351,20 @@ class Pelota {
     let randomAngle = random(offrateizq, offrateder);
     angleOffset += randomAngle;
 
+    // Inicio de la música
+    if (score == 0) {
+      musica.loop();
+    }
+
+    // Cambio de música al llegar a 150 puntos
+    if (score == 150) {
+      musica.stop();
+      musicaRate = 1.0;
+      musica2.play();
+      musica2.onended(() => this.changeMusic());
+    }
+
+    // Sonido de rebote y cambio de velocidad
     if ((score + 1) % 5 == 0 && score != 0) {
       speedUp.play();
     } else if ((score + 1) % 5 != 0) {
@@ -314,7 +373,7 @@ class Pelota {
 
     // Aumentar la fuerza para un rebote más fuerte, tras 5 puntos obtenidos
     if (score % 5 == 0 && score != 0) {
-      forceMagnitude = forceMagnitude + 0.001;
+      forceMagnitude = forceMagnitude + 0.0008;
       reboteRate += 0.05;
       rebote.rate(reboteRate);
       speedUpRate += 0.05;
@@ -327,19 +386,37 @@ class Pelota {
 
     //Aumento de dificultad tras 50 puntos conseguidos
     if ((score + 1) % 50 == 0 && score != 0 && size + 100 <= windowWidth) {
+      musicaRate += 0.1;
+      if (!level2Music) {
+        musica.rate(musicaRate);
+      } else if (level2Music) {
+        musica3.rate(musicaRate);
+      }
       size += 100;
       resizeCanvas(size, 500);
       Matter.Body.setPosition(rightWall, { x: width, y: height / 2 - 10 });
       topWall = Matter.Bodies.rectangle(width / 2, 0, width, 10, {
         isStatic: true,
       });
-    } else if ((score + 1) % 50 == 0 && score != 0 && size + 100 > windowWidth && moreResizable){
-        resizeCanvas(windowWidth, 500);
-        Matter.Body.setPosition(rightWall, { x: width, y: height / 2 - 10 });
-        topWall = Matter.Bodies.rectangle(width / 2, 0, width, 10, {
-            isStatic: true,
-        });
-        moreResizable = false;
+    } else if (
+      (score + 1) % 50 == 0 &&
+      score != 0 &&
+      size + 100 > windowWidth &&
+      moreResizable
+    ) {
+      resizeCanvas(windowWidth, 500);
+      Matter.Body.setPosition(rightWall, { x: width, y: height / 2 - 10 });
+      topWall = Matter.Bodies.rectangle(width / 2, 0, width, 10, {
+        isStatic: true,
+      });
+      moreResizable = false;
+    }
+
+    if ((score + 1) % 100 == 0) {
+      offrateizq -= 100;
+      offrateder -= 100;
+      izVel -= 0.1;
+      derVel += 0.1;
     }
 
     // Aplicar una fuerza opuesta a la dirección actual de la pelota
@@ -360,5 +437,10 @@ class Pelota {
       y: pala.body.position.y - pala.alto / 2 - this.radio - 1,
     });
     score++;
+  }
+
+  changeMusic() {
+    musica3.loop();
+    level2Music = true;
   }
 }
