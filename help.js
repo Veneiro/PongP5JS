@@ -37,7 +37,7 @@ if (musicState === "playing") {
   pauseMusic();
 }
 
-window.addEventListener('load', function () {
+document.addEventListener('DOMContentLoaded', function () {
   if(musicState === "playing"){
     playMusic();
     mute.innerHTML = playingText;
