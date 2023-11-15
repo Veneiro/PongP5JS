@@ -9,36 +9,53 @@ function help() {
 function back() {
   window.location.href = "index.html";
 }
-/** 
 
-
-const promise = backgroundMusic.play();
-
-let playedOnLoad;
-
-if (promise !== undefined) {
-  promise.then(_ => {
-    // Autoplay started!
-    playedOnLoad = true;
-  }).catch(error => {
-    // Autoplay was prevented.
-    playedOnLoad = true;
-  });
-}
+var musicState = localStorage.getItem("musicState");
+var mute = document.getElementById("mute");
+var muteText = "Music Muted";
+var playingText = "Playing now..."
 
 // Pausar la música
 function pauseMusic() {
   backgroundMusic.pause();
+  localStorage.setItem("musicState", "paused");
+  mute.innerHTML = muteText;
 }
 
 // Detener la música
 function stopMusic() {
   backgroundMusic.pause();
   backgroundMusic.currentTime = 0;
+  localStorage.setItem("musicState", "paused");
+  mute.innerHTML = "Stopped";
 }
-*/
+
 var backgroundMusic = document.getElementById("backgroundMusic");
 // Reproducir la música
 function playMusic() {
   backgroundMusic.play();
+  localStorage.setItem("musicState", "playing");
+  mute.innerHTML = playingText;
+}
+
+// Restaura el estado de la música
+if (musicState === "playing") {
+  playMusic();
+} else if (musicState === "paused") {
+  pauseMusic();
+}
+
+window.addEventListener('load', function () {
+  if(musicState === "playing"){
+    playMusic();
+    mute.innerHTML = playingText;
+  }
+});
+
+function music(){
+  if (backgroundMusic.paused) {
+    playMusic();
+  } else {
+    pauseMusic();
+  }
 }
