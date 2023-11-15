@@ -57,9 +57,9 @@ function setup() {
   rebote = loadSound("./rebote.wav");
   speedUp = loadSound("./SpeedUp.wav");
   death = loadSound("./death.wav");
-  musica = loadSound("./musica.wav");
+  musica = loadSound("./musica.mp3");
   musica2 = loadSound("./musica2.wav");
-  musica3 = loadSound("./musica3.wav");
+  musica3 = loadSound("./musica3.mp3");
 
   // Establecer el volumen
   rebote.setVolume(0.4);
@@ -376,15 +376,22 @@ class Pelota {
 
     // Aumentar la fuerza para un rebote más fuerte, tras 5 puntos obtenidos
     if (score % 5 == 0 && score != 0) {
-      forceMagnitude = forceMagnitude + 0.0008;
-      reboteRate += 0.05;
-      rebote.rate(reboteRate);
-      speedUpRate += 0.05;
-      speedUp.rate(speedUpRate);
-      offrateizq -= 100;
-      offrateder -= 100;
-      izVel -= 0.1;
-      derVel += 0.1;
+      if(score <= 130){
+        forceMagnitude = forceMagnitude + 0.0008;
+        reboteRate += 0.05;
+        rebote.rate(reboteRate);
+        speedUpRate += 0.05;
+        speedUp.rate(speedUpRate);
+        offrateizq -= 100;
+        offrateder -= 100;
+        izVel -= 0.1;
+        derVel += 0.1;
+      } else {
+        offrateizq -= 100;
+        offrateder -= 100;
+        izVel -= 0.1;
+        derVel += 0.1;
+      }
     }
 
     //Aumento de dificultad tras 50 puntos conseguidos
