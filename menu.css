@@ -43,3 +43,8 @@ body {
     grid-row-gap:1em;
     text-align: center;
   }
+
+  img{
+    height: 5em;
+    width: 5em;
+  }

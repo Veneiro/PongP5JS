@@ -276,6 +276,7 @@ class Pelota {
   }
 
   colisionDerecha() {
+    rebote.play();
     let pos = this.body.position;
     let posx = pos.x;
     let posy = pos.y;
@@ -292,6 +293,7 @@ class Pelota {
   }
 
   colisionIzquierda() {
+    rebote.play();
     let pos = this.body.position;
     let posx = pos.x;
     let posy = pos.y;
@@ -308,6 +310,7 @@ class Pelota {
   }
 
   colisionArriba() {
+    rebote.play();
     let pos = this.body.position;
     let posx = pos.x;
     let posy = pos.y;

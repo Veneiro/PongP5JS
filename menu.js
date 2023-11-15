@@ -12,8 +12,13 @@ function back() {
 
 var musicState = localStorage.getItem("musicState");
 var mute = document.getElementById("mute");
-var muteText = "Music Muted";
-var playingText = "Playing now..."
+var muteText = '<img src="./mute.jpg" alt="Mute/Unmute">';
+var playingText = '<img src="./volume.jpg" alt="Mute/Unmute">'
+
+var backgroundMusic = document.getElementById("backgroundMusic");
+volumeControl.addEventListener('input', function() {
+  backgroundMusic.volume = volumeControl.value;
+});
 
 // Pausar la música
 function pauseMusic() {
@@ -30,7 +35,6 @@ function stopMusic() {
   mute.innerHTML = "Stopped";
 }
 
-var backgroundMusic = document.getElementById("backgroundMusic");
 // Reproducir la música
 function playMusic() {
   backgroundMusic.play();

@@ -16,7 +16,10 @@
       <h1>GRAVITY PONG</h1>
       <button onclick="startGame()">Iniciar Juego</button>
       <button onclick="help()">Ayuda</button>
-      <button id="mute" onclick=music()></button>
+      <button id="mute" onclick=music()>
+        <img src="./mute.jpg" alt="Mute/Unmute">
+      </button>
+      <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1">
     </main>
     <script src="menu.js"></script>
   </body>
