@@ -71,6 +71,9 @@
                             <li>
                                 Sonido de perdida de vida
                             </li>
+                            <li>
+                                Toda la música de menús y juego
+                            </li>
                         </ul>
                     </article>
                 </section>
